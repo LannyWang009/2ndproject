@@ -9,7 +9,7 @@
              </p>
          </div>
      </header>
-     
+
      <div class="row text-center" style="display:flex; flex-wrap: wrap;">
         <% movies.forEach(function(element){ %>
             <div class="col-md-3 col-sm-6">
@@ -19,6 +19,10 @@
                        <h4><%= element.title %></h4>
                        <p><%= element.genre %></p>
                    </div>
+                   <p>
+                       <a href="/movies/<%= element._id %>" class="btn btn-primary">More info</a>
+                       <a href="" class = "btn btn-light">Add the cart</a>
+                   </p>
                 </div>
             </div>
         <% }); %>

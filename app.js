@@ -33,50 +33,51 @@ var Movie = mongoose.model("Movie", movieSchema);
 
 
 
-var movies = [
-        {title:"Call Me by Your Name",
-        genre:"Drama, Romance",
-        poster:"https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"},
-        {title: "California",
-        genre: "Romance, Western",
-        poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmM4M2ItMWZhOS00NDUzLTk5ZTAtMjVkM2NiMGMyYWQwXkEyXkFqcGdeQXVyNjE5MjUyOTM@._V1_SX300.jpg"},
-        { title: "Happy",
-         genre: "Documentary, Drama, Family",
-         poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjI1NTg1MzcwM15BMl5BanBnXkFtZTcwMjA2OTU4NQ@@._V1_SX300.jpg"},
-         {title:"Call Me by Your Name",
-        genre:"Drama, Romance",
-        poster:"https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"},
-        { title: "California",
-        genre: "Romance, Western",
-        poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmM4M2ItMWZhOS00NDUzLTk5ZTAtMjVkM2NiMGMyYWQwXkEyXkFqcGdeQXVyNjE5MjUyOTM@._V1_SX300.jpg"},
-        { title: "Happy",
-         genre: "Documentary, Drama, Family",
-         poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjI1NTg1MzcwM15BMl5BanBnXkFtZTcwMjA2OTU4NQ@@._V1_SX300.jpg"},
-        {title:"Call Me by Your Name",
-        genre:"Drama, Romance",
-        poster:"https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"},
-        { title: "California",
-        genre: "Romance, Western",
-        poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmM4M2ItMWZhOS00NDUzLTk5ZTAtMjVkM2NiMGMyYWQwXkEyXkFqcGdeQXVyNjE5MjUyOTM@._V1_SX300.jpg"},
-        { title: "Happy",
-         genre: "Documentary, Drama, Family",
-         poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjI1NTg1MzcwM15BMl5BanBnXkFtZTcwMjA2OTU4NQ@@._V1_SX300.jpg"},
-         {title:"Call Me by Your Name",
-        genre:"Drama, Romance",
-        poster:"https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"},
-        { title: "California",
-        genre: "Romance, Western",
-        poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmM4M2ItMWZhOS00NDUzLTk5ZTAtMjVkM2NiMGMyYWQwXkEyXkFqcGdeQXVyNjE5MjUyOTM@._V1_SX300.jpg"},
-        { title: "Happy",
-         genre: "Documentary, Drama, Family",
-         poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjI1NTg1MzcwM15BMl5BanBnXkFtZTcwMjA2OTU4NQ@@._V1_SX300.jpg"}
+// var movies = [
+//         {title:"Call Me by Your Name",
+//         genre:"Drama, Romance",
+//         poster:"https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"},
+//         {title: "California",
+//         genre: "Romance, Western",
+//         poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmM4M2ItMWZhOS00NDUzLTk5ZTAtMjVkM2NiMGMyYWQwXkEyXkFqcGdeQXVyNjE5MjUyOTM@._V1_SX300.jpg"},
+//         { title: "Happy",
+//          genre: "Documentary, Drama, Family",
+//          poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjI1NTg1MzcwM15BMl5BanBnXkFtZTcwMjA2OTU4NQ@@._V1_SX300.jpg"},
+//          {title:"Call Me by Your Name",
+//         genre:"Drama, Romance",
+//         poster:"https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"},
+//         { title: "California",
+//         genre: "Romance, Western",
+//         poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmM4M2ItMWZhOS00NDUzLTk5ZTAtMjVkM2NiMGMyYWQwXkEyXkFqcGdeQXVyNjE5MjUyOTM@._V1_SX300.jpg"},
+//         { title: "Happy",
+//          genre: "Documentary, Drama, Family",
+//          poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjI1NTg1MzcwM15BMl5BanBnXkFtZTcwMjA2OTU4NQ@@._V1_SX300.jpg"},
+//         {title:"Call Me by Your Name",
+//         genre:"Drama, Romance",
+//         poster:"https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"},
+//         { title: "California",
+//         genre: "Romance, Western",
+//         poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmM4M2ItMWZhOS00NDUzLTk5ZTAtMjVkM2NiMGMyYWQwXkEyXkFqcGdeQXVyNjE5MjUyOTM@._V1_SX300.jpg"},
+//         { title: "Happy",
+//          genre: "Documentary, Drama, Family",
+//          poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjI1NTg1MzcwM15BMl5BanBnXkFtZTcwMjA2OTU4NQ@@._V1_SX300.jpg"},
+//          {title:"Call Me by Your Name",
+//         genre:"Drama, Romance",
+//         poster:"https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"},
+//         { title: "California",
+//         genre: "Romance, Western",
+//         poster: "https://m.media-amazon.com/images/M/MV5BNzhhMmM4M2ItMWZhOS00NDUzLTk5ZTAtMjVkM2NiMGMyYWQwXkEyXkFqcGdeQXVyNjE5MjUyOTM@._V1_SX300.jpg"},
+//         { title: "Happy",
+//          genre: "Documentary, Drama, Family",
+//          poster: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjI1NTg1MzcwM15BMl5BanBnXkFtZTcwMjA2OTU4NQ@@._V1_SX300.jpg"}
 
-];
+// ];
 
 app.get("/", function(req, res){
     res.render("landing");
 });
 
+// Index route - show all movies
 app.get("/movies", function(req, res){
     //get all movies from the DB;
     // res.render("movies",{movies:movies});
@@ -89,8 +90,9 @@ app.get("/movies", function(req, res){
     })
 });
 
+// CREATE route, add new movie to our database
 app.post("/movies", function(req, res){
-    // get data from form and add to campgrounds array
+    // get data from form and add to movies array
     var title = req.body.title;
     var genre = req.body.genre;
     var poster = req.body.poster;
@@ -107,9 +109,26 @@ app.post("/movies", function(req, res){
     })
 });
 
+//NEW - show form to create a new movie
+
 app.get("/movies/new", function(req, res){
    res.render("new.ejs");
 });
+
+//SHOW - show more info about one specific movie
+
+app.get("/movies/:id", function(req, res){
+    //find the movie with provided id
+    Movie.findById(req.params.id, function(err, foundMovie){
+        if(err){
+            console.log(err);
+        } else {
+        // and render show template with that movie
+          res.render("show", {movie: foundMovie});
+        }
+    });
+
+})
 
 app.listen(process.env.PORT || 3000, process.env.IP, function(){
    console.log("The view-your-movies Server Has Started!");
