@@ -60,16 +60,29 @@ app.get('/movies/new', function (req, res) {
 // SHOW - show more info about one specific movie
 
 app.get('/movies/:id', function (req, res) {
-  // find the movie with provided id
-  Movie.findById(req.params.id, function (err, foundMovie) {
+  // find the movie comments with provided id, .populate() can reference documents in other collections
+  Movie.findById(req.params.id).populate("comments").exec(function(err, foundMovie) {
     if (err) {
       console.log(err)
-    } else {
+    } else { console.log(foundMovie)
       // and render show template with that movie
       res.render('show', { movie: foundMovie })
     }
   })
 })
+
+// before data association
+// app.get('/movies/:id', function (req, res) {
+//   // find the movie with provided id
+//   Movie.findById(req.params.id, function (err, foundMovie) {
+//     if (err) {
+//       console.log(err)
+//     } else {
+//       // and render show template with that movie
+//       res.render('show', { movie: foundMovie })
+//     }
+//   })
+// })
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
   console.log('The view-your-movies Server Has Started!')
