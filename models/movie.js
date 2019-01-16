@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-//SCHEMA SET UP: make a model "Movie" using the "movieSchema" schema
+// SCHEMA SET UP: make a model "Movie" using the "movieSchema" schema
 var movieSchema = new mongoose.Schema({
-    title: String,
-    genre: String,
-    poster: String,
-    comments: Array
-});
+  title: String,
+  genre: String,
+  poster: String,
+  comments: Array
+})
 
-module.exports = mongoose.model("Movie", movieSchema);
+module.exports = mongoose.model('Movie', movieSchema)
 
-//example of inserting an object into the "Movie" model in the db, inserted four movies
+// example of inserting an object into the "Movie" model in the db, inserted four movies
 // Movie.create(
 //     {title: "Happy",
 //          genre: "Documentary, Drama, Family",
@@ -22,8 +22,6 @@ module.exports = mongoose.model("Movie", movieSchema);
 //             console.log(movie);
 //         }
 //     });
-
-
 
 // var movies = [
 //         {title:"Call Me by Your Name",
