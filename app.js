@@ -2,9 +2,13 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+var seedDB = require('./seeds');
 var Movie = require('./models/movie');
-// name the model Movie, because in Mongoose we are using Movie.find() and Movie.create methods bellow;
+var Comment = require("./models/comment");
+// var Cart = require("./models/cart");
 
+//set it to initial state every time we run the server;
+seedDB();
 //connect to our mongodb rate_movie databsae;
 mongoose.connect("mongodb://localhost:27017/rate_movies", {useNewUrlParser: true});
 

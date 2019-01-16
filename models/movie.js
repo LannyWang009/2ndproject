@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 var movieSchema = new mongoose.Schema({
     title: String,
     genre: String,
-    poster: String
+    poster: String,
+    comments: Array
 });
 
 module.exports = mongoose.model("Movie", movieSchema);
