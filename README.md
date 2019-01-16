@@ -28,7 +28,7 @@ Each Movie has:
 * Add a navbar to all templates
 * Style the new movie form
 
-#Add Mongoose
+#Add Mongoose (branch db1)
 * Install and configure Mongoose
 * Setup campground model
 * Use campground model inside of our routes
@@ -149,13 +149,13 @@ NEW     /dogs/new  GET   Displays form to make a new dog
 CREATE  /dogs      POST  Add new dog to DB
 SHOW    /dogs/:id  GET   Shows info about one dog
 
-INDEX   /campgrounds
-NEW     /campgrounds/new
-CREATE  /campgrounds
-SHOW    /campgrounds/:id
+INDEX   /movies
+NEW     /movies/new
+CREATE  /movies
+SHOW    /movies/:id
 
-NEW     campgrounds/:id/comments/new    GET
-CREATE  campgrounds/:id/comments      POST
+NEW     movies/:id/comments/new    GET
+CREATE  movies/:id/comments      POST
 ------------------------------------------------------
 
 This is the final project for "Phase 2" of the Flex course for [DigitalCrafts]
