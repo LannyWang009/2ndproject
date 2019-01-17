@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 var seedDB = require('./seeds')
 var Movie = require('./models/movie')
-// var Comment = require('./models/comment')
+var Comment = require('./models/comment')
 // var Cart = require("./models/cart");
 
 // set it to initial state every time we run the server;
@@ -54,7 +54,7 @@ app.post('/movies', function (req, res) {
 // NEW - show form to create a new movie
 
 app.get('/movies/new', function (req, res) {
-  res.render('new.ejs')
+  res.render('new-movie.ejs')
 })
 
 // SHOW - show more info about one specific movie
@@ -66,7 +66,7 @@ app.get('/movies/:id', function (req, res) {
       console.log(err)
     } else { console.log(foundMovie)
       // and render show template with that movie
-      res.render('show', { movie: foundMovie })
+      res.render('show-movie', { movie: foundMovie })
     }
   })
 })
@@ -83,6 +83,51 @@ app.get('/movies/:id', function (req, res) {
 //     }
 //   })
 // })
+
+// ---------------------------------------
+// COMMENTS ROUTES
+// ---------------------------------------
+
+app.get("/movies/:id/comments/new", function(req, res){
+  // find movie by id
+  Movie.findById(req.params.id, function(err, movie){
+    if(err){
+      console.log(err)
+    } else {
+      res.render("new-comment", {movie:movie})
+  }
+  })
+})
+
+app.post("/movies/:id/comments", function(req, res){
+  //lookup the movie by ID
+  Movie.findById(req.params.id, function(err, movie){
+    if(err){
+      console.log(err);
+      //redirect to movies show page
+      res.redirect('/movies')
+    } else {
+      //create new comment
+      // console.log(req.body.comments)
+      Comment.create(req.body.comment, function(err, comment){
+        if(err){
+          console.log(err)
+        } else {
+          movie.comments.push(comment);
+          movie.save();
+          res.redirect('/movies/' + movie._id);
+        }
+      })
+      //connet new comment to movie
+      //redirect to the movie/show page
+    }
+  })
+
+})
+
+
+
+
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
   console.log('The view-your-movies Server Has Started!')
