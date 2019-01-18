@@ -12,7 +12,6 @@ var Movie = require('./models/movie')
 var Comment = require('./models/comment')
 // var Cart = require("./models/cart");
 
-
 // connect to our mongodb rate_movie databsae;
 mongoose.connect('mongodb://localhost:27017/rate_movies', { useNewUrlParser: true })
 
@@ -22,8 +21,8 @@ app.set('view engine', 'ejs')
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
 // PASSPORT CONFIGURATION
-app.use(require("express-session")({
-  secret:"I don't even like movies!",
+app.use(require('express-session')({
+  secret: "I don't even like movies!",
   resave: false,
   saveUnitialized: false
 }))
@@ -35,8 +34,6 @@ passport.deserializeUser(User.deserializeUser())
 
 // set it to initial state every time we run the server;
 seedDB()
-
-
 
 app.get('/', function (req, res) {
   res.render('landing')
