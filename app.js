@@ -3,20 +3,40 @@ const app = express()
 const path = require('path')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+
+var User = require('./models/user')
 var seedDB = require('./seeds')
 var Movie = require('./models/movie')
 var Comment = require('./models/comment')
 // var Cart = require("./models/cart");
 
-// set it to initial state every time we run the server;
-seedDB()
+
 // connect to our mongodb rate_movie databsae;
 mongoose.connect('mongodb://localhost:27017/rate_movies', { useNewUrlParser: true })
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
-// app.use(express.static(__dirname + '/public'))
+// standardjs reccommended version of 'app.use(express.static(__dirname + '/public'))'
 app.use('/static', express.static(path.join(__dirname, 'public')))
+
+// PASSPORT CONFIGURATION
+app.use(require("express-session")({
+  secret:"I don't even like movies!",
+  resave: false,
+  saveUnitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+// set it to initial state every time we run the server;
+seedDB()
+
+
 
 app.get('/', function (req, res) {
   res.render('landing')
@@ -63,7 +83,8 @@ app.get('/movies/new', function (req, res) {
 // SHOW - show more info about one specific movie
 
 app.get('/movies/:id', function (req, res) {
-  // find the movie comments with provided id, .populate() can reference documents in other collections
+  // find the movie comments with provided id, .populate() can reference documents in other collections, .populate('collection').exec() is
+  // to fetch data embedded in the collection
   Movie.findById(req.params.id).populate('comments').exec(function (err, foundMovie) {
     if (err) {
       console.log(err)
