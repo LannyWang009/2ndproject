@@ -1,0 +1,21 @@
+ <% include partials/header %>
+
+<div class="container text-center m-x-3 m-y-2">
+    <h1><%= movie.title %></h1>
+    <img src="<%= movie.poster %>">
+
+    <div class="flex">
+        <div>
+        <% movie.comments.forEach(function(element){ %>
+            <strong><%= element.text %></strong>
+            <i>- by <%= element.author %></i>
+
+        </div>
+        <% }) %>
+         <p>
+            <a class="btn btn-success" href="/movies/<%= movie._id %>/comments/new">Add a New Comment</a>
+        </p>
+    </div>
+
+</div>
+<% include partials/footer %>
