@@ -24,7 +24,7 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(require('express-session')({
   secret: "I don't even like movies!",
   resave: false,
-  saveUnitialized: false
+  saveUninitialized: false
 }))
 app.use(passport.initialize())
 app.use(passport.session())
@@ -145,6 +145,38 @@ app.post('/movies/:id/comments', function (req, res) {
     }
   })
 })
+
+// ==================
+// AUTH ROUTES
+// ==================
+app.get('/register', function(req, res){
+  res.render('register')
+})
+
+app.post('/register', function(req, res){
+  var newUser = new User({username: req.body.username})
+  User.register(newUser, req.body.password, function(err, user){
+    if(err){
+      console.log(err)
+      return res.render("register")
+    }
+    passport.authenticate("local")(req, res, function(){
+      res.redirect("/movies")
+    })
+  })
+})
+
+app.get('/test', function(req, res){
+  User.find()
+    .then(function(user){
+      console.log('users', user);
+    })
+    .catch(function(err){
+      console.log(err);
+
+    })
+})
+
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
   console.log('The view-your-movies Server Has Started!')
