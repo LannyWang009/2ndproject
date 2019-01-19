@@ -175,11 +175,14 @@ app.post('/movies/:id/comments', function (req, res) {
 // ==================
 // AUTH ROUTES
 // ==================
+// show register form
 app.get('/register', function(req, res){
   res.render('register')
 })
 
+// send registration info to the server and login
 app.post('/register', function(req, res){
+
   var newUser = new User({
     username:req.body.username,
     useremail: req.body.useremail
@@ -191,12 +194,13 @@ app.post('/register', function(req, res){
       //here we should add an error message in UI
       return res.render("register")
     }
-    res.redirect('/login')
-    // passport.authenticate("local")(req, res, function(){
-    //   res.redirect("/movies")
-
+    // res.redirect('/login')
+    passport.authenticate("local")(req, res, function(){
+    res.redirect("/movies")
+    })
   })
 })
+
 
 //show login form
 app.get('/login', function(req, res){
@@ -212,6 +216,13 @@ app.post('/login', function(req, res){
 
     })
 })
+
+// logout route
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/movies');
+})
+
 
 app.get('/test', function(req, res){
   User.find()
@@ -232,3 +243,4 @@ app.get('/failure', function(req, res){
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
   console.log('The view-your-movies Server Has Started!')
 })
+
