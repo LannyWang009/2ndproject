@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+// const LocalStrategy = require('passport-local').Strategy
 
 var User = require('./models/user')
 var seedDB = require('./seeds')
@@ -28,7 +29,31 @@ app.use(require('express-session')({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+
+// login through username
 passport.use(new LocalStrategy(User.authenticate()))
+
+// // to login through email
+// passport.use(new LocalStrategy({
+//   usernameField:'useremail',
+//   passwordField:'password'
+//   },
+//   function(useremail, password, done) {
+//     User.findOne({useremail:useremail}, function(err, user){
+//       if (err) {return done(err);}
+//       if (!user){
+//         console.log('bad email')
+//         return done(null, false, {message:'Incorrect email'})
+//         }
+//       if (!user.validPassword(password)) {
+//         // it says user.validPassword is not a function
+//             return done(null, false, { message: 'Incorrect password.' });
+//           }
+//             return done(null, user)
+//     })
+//   }
+// ));
+
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
@@ -41,6 +66,7 @@ app.get('/', function (req, res) {
 
 // Index route - show all movies
 app.get('/movies', function (req, res) {
+  console.log(req.user)
   // get all movies from the DB;
   // res.render("movies",{movies:movies});
   Movie.find({}, function (err, allMovies) {
@@ -154,16 +180,37 @@ app.get('/register', function(req, res){
 })
 
 app.post('/register', function(req, res){
-  var newUser = new User({username: req.body.username})
+  var newUser = new User({
+    username:req.body.username,
+    useremail: req.body.useremail
+    })
+
   User.register(newUser, req.body.password, function(err, user){
     if(err){
       console.log(err)
+      //here we should add an error message in UI
       return res.render("register")
     }
-    passport.authenticate("local")(req, res, function(){
-      res.redirect("/movies")
-    })
+    res.redirect('/login')
+    // passport.authenticate("local")(req, res, function(){
+    //   res.redirect("/movies")
+
   })
+})
+
+//show login form
+app.get('/login', function(req, res){
+  res.render('login')
+})
+
+// app.post("/login", middleware, callback)
+app.post('/login', function(req, res){
+  console.log(req.body)
+  passport.authenticate("local")(req, res, function(){
+    console.log('req.user', req.user)
+      res.redirect("/movies")
+
+    })
 })
 
 app.get('/test', function(req, res){
@@ -175,6 +222,10 @@ app.get('/test', function(req, res){
       console.log(err);
 
     })
+})
+
+app.get('/failure', function(req, res){
+  res.render('failure')
 })
 
 
