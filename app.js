@@ -176,71 +176,64 @@ app.post('/movies/:id/comments', function (req, res) {
 // AUTH ROUTES
 // ==================
 // show register form
-app.get('/register', function(req, res){
+app.get('/register', function (req, res) {
   res.render('register')
 })
 
 // send registration info to the server and login
-app.post('/register', function(req, res){
-
+app.post('/register', function (req, res) {
   var newUser = new User({
-    username:req.body.username,
+    username: req.body.username,
     useremail: req.body.useremail
-    })
+  })
 
-  User.register(newUser, req.body.password, function(err, user){
-    if(err){
+  User.register(newUser, req.body.password, function (err, user) {
+    if (err) {
       console.log(err)
-      //here we should add an error message in UI
-      return res.render("register")
+      // here we should add an error message in UI
+      return res.render('register')
     }
     // res.redirect('/login')
-    passport.authenticate("local")(req, res, function(){
-    res.redirect("/movies")
+    passport.authenticate('local')(req, res, function () {
+      res.redirect('/movies')
     })
   })
 })
 
-
-//show login form
-app.get('/login', function(req, res){
+// show login form
+app.get('/login', function (req, res) {
   res.render('login')
 })
 
 // app.post("/login", middleware, callback)
-app.post('/login', function(req, res){
+app.post('/login', function (req, res) {
   console.log(req.body)
-  passport.authenticate("local")(req, res, function(){
+  passport.authenticate('local')(req, res, function () {
     console.log('req.user', req.user)
-      res.redirect("/movies")
-
-    })
+    res.redirect('/movies')
+  })
 })
 
 // logout route
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/movies');
+app.get('/logout', function (req, res) {
+  req.logout()
+  res.redirect('/movies')
 })
 
-
-app.get('/test', function(req, res){
+app.get('/test', function (req, res) {
   User.find()
-    .then(function(user){
-      console.log('users', user);
+    .then(function (user) {
+      console.log('users', user)
     })
-    .catch(function(err){
-      console.log(err);
-
+    .catch(function (err) {
+      console.log(err)
     })
 })
 
-app.get('/failure', function(req, res){
+app.get('/failure', function (req, res) {
   res.render('failure')
 })
-
 
 app.listen(process.env.PORT || 3000, process.env.IP, function () {
   console.log('The view-your-movies Server Has Started!')
 })
-
