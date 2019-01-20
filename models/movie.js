@@ -6,6 +6,8 @@ var movieSchema = new mongoose.Schema({
   genre: String,
   poster: String,
   price: Number,
+  plot: String,
+  actors: String,
   comments: [ {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'

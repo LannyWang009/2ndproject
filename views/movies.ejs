@@ -10,15 +10,15 @@
          </div>
      </header>
 
-     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+     <div class="row text-center">
         <% movies.forEach(function(element){ %>
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                   <img src="<%= element.poster %>">
-                   <div class="caption">
-                       <h4><%= element.title %></h4>
-                       <p><%= element.genre %></p>
-                       <p>$<%= element.price %></p>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+                   <img class="card-img-top" src="<%= element.poster %>" alt="<%= element.title %>">
+                   <div class="card-body">
+                       <h4 class="card-title"><%= element.title %></h4>
+                       <p class="card-text"><%= element.genre %></p>
+                       <p class="card-text">$<%= element.price %></p>
                    </div>
                    <p>
                        <a href="/movies/<%= element._id %>" class="btn btn-primary">More info</a>

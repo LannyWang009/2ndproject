@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/rate_movies', { useNewUrlParser: tru
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 // standardjs reccommended version of 'app.use(express.static(__dirname + '/public'))'
-app.use('/static', express.static(path.join(__dirname, 'public')))
+app.use('/static', express.static(path.join(__dirname, '/public')))
 seedDB();
 
 // PASSPORT CONFIGURATION
