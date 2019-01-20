@@ -17,13 +17,18 @@
                    <img class="card-img-top" src="<%= element.poster %>" alt="<%= element.title %>">
                    <div class="card-body">
                        <h4 class="card-title"><%= element.title %></h4>
+                       <p class="card-text"><%= element.year %></p>
                        <p class="card-text"><%= element.genre %></p>
                        <p class="card-text">$<%= element.price %></p>
+                       <div class='row'>
+                           <form class="col" action="/movies/<%= element._id %>" method="get">
+                               <input class="btn btn-sm btn-primary mb-1" type="submit" value="More info">
+                           </form>
+                           <form class="col" action="/movies/<%= element._id %>/add" method="post">
+                               <input class="btn btn-sm btn-outline-primary mb-1" type="submit" value="Add to cart">
+                           </form>
+                       </div>
                    </div>
-                   <p>
-                       <a href="/movies/<%= element._id %>" class="btn btn-primary">More info</a>
-                       <a href="/" class = "btn btn-success">Add the cart</a>
-                   </p>
                 </div>
             </div>
         <% }); %>

@@ -177,16 +177,23 @@ function seedDB () {
         request(url, function (error, response, body) {
           if (!error && response.statusCode === 200) {
             let result = JSON.parse(body)
+            console.log(result)
             element.genre = result.Genre
             if (result.Poster !== undefined) { element.poster = result.Poster }
             element.plot = result.Plot
-            element.Actors = result.Actors
-            element.imdbRatings = result.imdbRatings
-            console.log(element)
+            element.actors = result.Actors
+            element.director = result.Director
+            element.imdbrating = result.imdbRating
+            element.awards = result.Awards
+            element.runtime = result.Runtime
+            element.year = result.Year
             Movie.create(element, function (err, movie) {
               if (err) {
                 console.log(err)
               } else {
+                // console.log("element:", element)
+                // console.log("movie:", movie)
+
                 // create a default comment
                 Comment.create(
                   {
@@ -208,30 +215,6 @@ function seedDB () {
     }) // comment.remove
   }) // movie.remove
 }
-//       // add a few movies
-//       data.forEach(function (seed) {
-//         Movie.create(seed, function (err, movie) {
-//           if (err) {
-//             console.log(err)
-//           } else {
-//             // create a comment
-//             Comment.create(
-//               {
-//                 text: 'Total trash.',
-//                 author: 'movie_potato'
-//               }, function (err, comment) {
-//                 if (err) {
-//                   console.log(err)
-//                 } else {
-//                   movie.comments.push(comment)
-//                   movie.save()
-//                 }
-//               })
-//           }
-//         })
-//       })
-//     })
-//   })
-// }
+
 
 module.exports = seedDB

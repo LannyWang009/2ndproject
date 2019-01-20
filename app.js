@@ -56,6 +56,8 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 app.use(function (req, res, next) {
+  //this is a middleware that will be used in every route.
+  // variable here will be passed on to all route.
   res.locals.currentUser = req.user
   next()
 })
@@ -99,7 +101,7 @@ app.post('/movies', function (req, res) {
 
 // NEW - show form to create a new movie
 
-app.get('/movies/new', function (req, res) {
+app.get('/movies/new', isLoggedIn, function (req, res) {
   res.render('new-movie.ejs')
 })
 
@@ -170,6 +172,63 @@ app.post('/movies/:id/comments', isLoggedIn, function (req, res) {
       // redirect to the movie/show page
     }
   })
+})
+
+// ===============
+// Add the User Routes
+// ===============
+
+app.post('/movies/:id/add', isLoggedIn, function(req, res){
+ // add the movie to user's cart
+
+   // lookup the movie by ID
+  Movie.findById(req.params.id, function (err, movie) {
+    if (err) {
+      console.log(err)
+      // redirect to movies show page
+      res.redirect('/movies/:id')
+    } else {
+      // create new cart item and push to User.carts array
+      // console.log(req.body.comments)
+      var newItem = {}
+      newItem.title = movie.title
+      newItem.price = movie.price
+      newItem.
+      console.log(newItem)
+      User.findById(req.user._id, function (err, user) {
+        if(err) {console.log(err)} else {
+          user.carts.push(newItem)
+          user.save()
+        }
+      })
+    }
+  })
+})
+
+// CastError: Cast to ObjectId failed for value "{ title: 'The Godfather, part II', price: 9.99 }" at path "carts"
+    at MongooseError.CastError (/home/ubuntu/workspace/node_modules/mongoose/lib/error/cast.js:29:11)
+    at ObjectId.cast (/home/ubuntu/workspace/node_modules/mongoose/lib/schema/objectid.js:232:11)
+    at ObjectId.SchemaType.applySetters (/home/ubuntu/workspace/node_modules/mongoose/lib/schematype.js:845:12)
+    at Array._cast (/home/ubuntu/workspace/node_modules/mongoose/lib/types/array.js:129:32)
+    at Array._mapCast (/home/ubuntu/workspace/node_modules/mongoose/lib/types/array.js:308:17)
+    at Object.map (native)
+    at Array.push (/home/ubuntu/workspace/node_modules/mongoose/lib/types/array.js:322:25)
+    at /home/ubuntu/workspace/app.js:199:22
+    at /home/ubuntu/workspace/node_modules/mongoose/lib/model.js:4658:16
+    at /home/ubuntu/workspace/node_modules/mongoose/lib/query.js:4038:12
+    at process.nextTick (/home/ubuntu/workspace/node_modules/mongoose/lib/query.js:2640:28)
+    at _combinedTickCallback (internal/process/next_tick.js:73:7)
+    at process._tickCallback (internal/process/next_tick.js:104:9)
+
+
+app.get('/users/:id', isLoggedIn, function(req, res){
+  // show user info and edit profile
+  res.render('users')
+})
+
+app.get('/users/:id/cart', isLoggedIn, function(req, res){
+  // show movies inside user's cart
+  res.send('this is the cart page')
 })
 
 // ==================
