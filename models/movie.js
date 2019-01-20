@@ -5,11 +5,13 @@ var movieSchema = new mongoose.Schema({
   title: String,
   genre: String,
   poster: String,
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment'
-    }] // this is to do an object ref between Comment Collection and Movie Collection. This is to create data association
+  price: Number,
+  plot: String,
+  actors: String,
+  comments: [ {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment'
+  }] // this is to do an object ref between Comment Collection and Movie Collection. This is to create data association
 })
 
 module.exports = mongoose.model('Movie', movieSchema)
