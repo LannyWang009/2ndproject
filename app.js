@@ -13,14 +13,13 @@ var Movie = require('./models/movie')
 var Comment = require('./models/comment')
 // var Cart = require("./models/cart");
 
-
 // connect to our mongodb rate_movie databsae;
 mongoose.connect('mongodb://localhost:27017/rate_movies', { useNewUrlParser: true })
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 // standardjs reccommended version of 'app.use(express.static(__dirname + '/public'))'
 app.use('/static', express.static(path.join(__dirname, '/public')))
-seedDB();
+seedDB()
 
 // PASSPORT CONFIGURATION
 app.use(require('express-session')({
@@ -56,11 +55,10 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-app.use(function(req, res, next){
-  res.locals.currentUser=req.user;
-  next();
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user
+  next()
 })
-
 
 app.get('/', function (req, res) {
   res.render('landing')
@@ -178,25 +176,25 @@ app.post('/movies/:id/comments', isLoggedIn, function (req, res) {
 // AUTH ROUTES
 // ==================
 // show register form
-app.get('/register', function(req, res) {
+app.get('/register', function (req, res) {
   res.render('register')
 })
 
 // send registration info to the server and login
-app.post('/register', function(req, res) {
+app.post('/register', function (req, res) {
   var newUser = new User({
     username: req.body.username,
     useremail: req.body.useremail
   })
 
-  User.register(newUser, req.body.password, function(err, user) {
+  User.register(newUser, req.body.password, function (err, user) {
     if (err) {
       console.log(err)
       // here we should add an error message in UI
       return res.render('register')
     }
     // res.redirect('/login')
-    passport.authenticate('local')(req, res, function() {
+    passport.authenticate('local')(req, res, function () {
       res.redirect('/movies')
     })
   })
@@ -208,12 +206,12 @@ app.get('/login', function (req, res) {
 })
 
 // app.post("/login", middleware, callback)
-app.post('/login', passport.authenticate("local",
+app.post('/login', passport.authenticate('local',
   {
-    successRedirect: "/movies",
-    failureRedirect: "/login"
-  }), function(req, res){
-  })
+    successRedirect: '/movies',
+    failureRedirect: '/login'
+  }), function (req, res) {
+})
 
 // logout route
 app.get('/logout', function (req, res) {
@@ -235,9 +233,9 @@ app.get('/failure', function (req, res) {
   res.render('failure')
 })
 
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    return next();
+function isLoggedIn (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
   }
   res.redirect('/login')
 }
