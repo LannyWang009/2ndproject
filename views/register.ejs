@@ -1,11 +1,23 @@
 <% include partials/header %>
-<h1>This is the sign up page</h1>
 
-<form action="/register" method="post">
-    <input type="email" name="useremail" placeholder="useremail">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Sign Up</button>
+<body class="text-center">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-signin" action="/register" method="post"
+            style="width:100%; max-width:330px; margin:20px auto; padding:15px">
+                <h1 class="h3 mb-3 font-weight-normal">Please sign up.</h1>
+                    <label for="inputUsername" class="sr-only">Username</label>
+                    <input class="form-control" type="text" name="username" id="inputUsername" placeholder="username" required autofocus>
+                <!--<input type="email" name="useremail" placeholder="useremail">-->
+                    <label for="inputUseremail" class="sr-only">Useremail</label>
+                    <input class="form-control" type="email" name="useremail" id="inputUseremail" placeholder="email" required>
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input class="form-control" type="password" name="password" id="inputPassword" placeholder="password" required>
 
-</form>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            </form>
+            <a href="/movies" class="mb-3">Go Back</a>
+        </div>
+    </div>
+
 <% include partials/footer %>

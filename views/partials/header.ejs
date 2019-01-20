@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv='X-UA-Compatible' content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Rate-Your-Movies</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!--load Bootstrap 4 css-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!--load Font Awesome-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <!--load main css-->
+        <link rel="stylesheet" href="/css/main.css" type="text/css">
+
     </head>
     <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">Rate-Your-Movies</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/register">Sign Up</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
-            </div>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="/" style="font-size:35px"><i class="fas fa-film"></i> Rate-Your-Movies</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item <%= typeof page !== 'undefined' && page === 'movies' ? 'active' : '' %>">
+                    <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Movies">Browse Movies</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                <% if(!currentUser){ %>
+                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="login">Login</a></li>
+                    <li class="nav-item <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="register" class="nav-link">Sign Up</a></li>
+                    <% } else { %>
+                    <li class="nav-item" style="margin-right:1rem"><a href="#" class="nav-link">Hello, <strong><%= currentUser.username %></strong>! </a></li>
+                    <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                    <% } %>
+            </ul>
         </div>
     </nav>

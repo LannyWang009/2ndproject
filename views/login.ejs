@@ -1,11 +1,20 @@
 <% include partials/header %>
-<h1>This is the login page</h1>
 
-<form action="/login" method="post">
-    <input type="text" name="username" placeholder="username">
-    <!--<input type="email" name="useremail" placeholder="useremail">-->
-    <input type="password" name="password" placeholder="password">
-    <button>submit</button>
+<body class="text-center">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-signin" style="max-width:330px; margin:20px auto" action="/login" method="post">
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                    <label for="inputUsername" class="sr-only">Username</label>
+                    <input class="form-control" type="text" name="username" id="inputUsername" placeholder="username" required autofocus>
+                <!--<input type="email" name="useremail" placeholder="useremail">-->
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input class="form-control" type="password" name="password" id="inputPassword" placeholder="password" required>
 
-</form>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+            </form>
+            <a href="/movies">Go Back</a>
+        </div>
+    </div>
+
 <% include partials/footer %>
