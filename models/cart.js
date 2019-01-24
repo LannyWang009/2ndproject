@@ -5,4 +5,10 @@ var cartSchema = mongoose.Schema({
   price: String
 })
 
+// var cartSchema = mongoose.Schema({
+//   type:mongoose.Schema.Types.ObjectId,
+//   ref:'Movie'
+// })
+
+
 module.exports = mongoose.model('Cart', cartSchema)

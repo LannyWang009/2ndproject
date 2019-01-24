@@ -11,15 +11,16 @@ var User = require('./models/user')
 var seedDB = require('./seeds')
 var Movie = require('./models/movie')
 var Comment = require('./models/comment')
-// var Cart = require("./models/cart");
+
 
 // connect to our mongodb rate_movie databsae;
 mongoose.connect('mongodb://localhost:27017/rate_movies', { useNewUrlParser: true })
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
-// standardjs reccommended version of 'app.use(express.static(__dirname + '/public'))'
-app.use('/static', express.static(path.join(__dirname, '/public')))
-seedDB()
+// standardjs reccommended version of '
+app.use(express.static(path.join(__dirname, '/public')))
+//app.use('/static', express.static(path.join(__dirname, '/public')))
+// seedDB()
 
 // PASSPORT CONFIGURATION
 app.use(require('express-session')({
@@ -68,17 +69,46 @@ app.get('/', function (req, res) {
 
 // Index route - show all movies
 app.get('/movies', function (req, res) {
-  console.log(req.user)
-  // get all movies from the DB;
-  // res.render("movies",{movies:movies});
-  Movie.find({}, function (err, allMovies) {
-    if (err) {
-      console.log(err) // will do UI handling errors later;
-    } else {
-      res.render('movies', { movies: allMovies })
-    }
-  })
+  console.log('req.query.genre:', req.query.genre)
+
+  //add a if condition here to check if req.query exist
+  if (req.query.genre) {
+    let x = req.query.genre
+    Movie.find({genre:{'$regex': x,'$options':'i'}}, function(err, filteredMovies) {
+      if (err) {
+        console.log(err)
+      } else {
+        // console.log('filtered:', filteredMovies)
+        res.render('movies', { movies: filteredMovies})
+      }
+    })
+  } else {
+      // get all movies from the DB;
+      // res.render("movies",{movies:movies});
+      Movie.find({}, function (err, allMovies) {
+        if (err) {
+          console.log(err) // will do UI handling errors later;
+        } else {
+          res.render('movies', { movies: allMovies })
+        }
+      })
+  }
 })
+
+
+// // Index route - filter movies by genres
+// app.get('/movies', function(req, res){
+//   console.log('req.query', req.query)
+//   var genre = req.query.genre
+//   Movie.find({ genre:/genre/i }, function (err, foundmovies) {
+//     if(err) {
+//       console.log(err)
+//     } else {
+//       console.log('foundmovies', foundmovies)
+//       res.render('movies', { movies: foundmovies})
+//     }
+//   })
+// })
 
 // CREATE route, add new movie to our database
 app.post('/movies', function (req, res) {
@@ -175,60 +205,70 @@ app.post('/movies/:id/comments', isLoggedIn, function (req, res) {
 })
 
 // ===============
-// Add the User Routes
+// User buy movie Routes
 // ===============
 
 app.post('/movies/:id/add', isLoggedIn, function(req, res){
  // add the movie to user's cart
 
-   // lookup the movie by ID
+  // lookup the movie by ID
   Movie.findById(req.params.id, function (err, movie) {
     if (err) {
       console.log(err)
       // redirect to movies show page
       res.redirect('/movies/:id')
     } else {
-      // create new cart item and push to User.carts array
-      // console.log(req.body.comments)
-      var newItem = {}
-      newItem.title = movie.title
-      newItem.price = movie.price
-      newItem.
-      console.log(newItem)
+      // find the movie objectID and push to the carts
+      //
       User.findById(req.user._id, function (err, user) {
         if(err) {console.log(err)} else {
-          user.carts.push(newItem)
+          user.carts.push(req.params.id)
           user.save()
         }
       })
     }
   })
+
+  res.redirect('/user/:id/cart')
 })
 
-// CastError: Cast to ObjectId failed for value "{ title: 'The Godfather, part II', price: 9.99 }" at path "carts"
-    at MongooseError.CastError (/home/ubuntu/workspace/node_modules/mongoose/lib/error/cast.js:29:11)
-    at ObjectId.cast (/home/ubuntu/workspace/node_modules/mongoose/lib/schema/objectid.js:232:11)
-    at ObjectId.SchemaType.applySetters (/home/ubuntu/workspace/node_modules/mongoose/lib/schematype.js:845:12)
-    at Array._cast (/home/ubuntu/workspace/node_modules/mongoose/lib/types/array.js:129:32)
-    at Array._mapCast (/home/ubuntu/workspace/node_modules/mongoose/lib/types/array.js:308:17)
-    at Object.map (native)
-    at Array.push (/home/ubuntu/workspace/node_modules/mongoose/lib/types/array.js:322:25)
-    at /home/ubuntu/workspace/app.js:199:22
-    at /home/ubuntu/workspace/node_modules/mongoose/lib/model.js:4658:16
-    at /home/ubuntu/workspace/node_modules/mongoose/lib/query.js:4038:12
-    at process.nextTick (/home/ubuntu/workspace/node_modules/mongoose/lib/query.js:2640:28)
-    at _combinedTickCallback (internal/process/next_tick.js:73:7)
-    at process._tickCallback (internal/process/next_tick.js:104:9)
-
+// app.get('/movies/:id', function (req, res) {
+//   // find the movie comments with provided id, .populate() can reference documents in other collections, .populate('collection').exec() is
+//   // to fetch data embedded in the collection
+//   Movie.findById(req.params.id).populate('comments').exec(function (err, foundMovie) {
+//     if (err) {
+//       console.log(err)
+//     } else {
+//       console.log(foundMovie)
+//       // and render show template with that movie
+//       res.render('show-movie', { movie: foundMovie })
+//     }
+//   })
+// })
 
 app.get('/users/:id', isLoggedIn, function(req, res){
   // show user info and edit profile
+  req.params.id
   res.render('users')
 })
 
+
+
 app.get('/users/:id/cart', isLoggedIn, function(req, res){
-  // show movies inside user's cart
-  res.send('this is the cart page')
+  // find movies in user's cart, populate that and execute
+  console.log('params id', req.params.id)
+  User.findOne({_id: req.params.id}).populate('carts').exec(function(err, foundUser) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(foundUser)
+      let total = 0
+      foundUser.carts.forEach(function(element){
+        total += parseFloat(element.price)
+      })
+      res.render('show-user-cart', {user: foundUser, total:total})
+    }
+  })
 })
 
 // ==================
