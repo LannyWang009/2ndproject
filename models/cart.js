@@ -10,5 +10,4 @@ var cartSchema = mongoose.Schema({
 //   ref:'Movie'
 // })
 
-
 module.exports = mongoose.model('Cart', cartSchema)

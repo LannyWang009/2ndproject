@@ -12,14 +12,13 @@ var seedDB = require('./seeds')
 var Movie = require('./models/movie')
 var Comment = require('./models/comment')
 
-
 // connect to our mongodb rate_movie databsae;
 mongoose.connect('mongodb://localhost:27017/rate_movies', { useNewUrlParser: true })
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 // standardjs reccommended version of '
 app.use(express.static(path.join(__dirname, '/public')))
-//app.use('/static', express.static(path.join(__dirname, '/public')))
+// app.use('/static', express.static(path.join(__dirname, '/public')))
 // seedDB()
 
 // PASSPORT CONFIGURATION
@@ -57,7 +56,7 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 app.use(function (req, res, next) {
-  //this is a middleware that will be used in every route.
+  // this is a middleware that will be used in every route.
   // variable here will be passed on to all route.
   res.locals.currentUser = req.user
   next()
@@ -71,30 +70,29 @@ app.get('/', function (req, res) {
 app.get('/movies', function (req, res) {
   console.log('req.query.genre:', req.query.genre)
 
-  //add a if condition here to check if req.query exist
+  // add a if condition here to check if req.query exist
   if (req.query.genre) {
     let x = req.query.genre
-    Movie.find({genre:{'$regex': x,'$options':'i'}}, function(err, filteredMovies) {
+    Movie.find({ genre: { '$regex': x, '$options': 'i' } }, function (err, filteredMovies) {
       if (err) {
         console.log(err)
       } else {
         // console.log('filtered:', filteredMovies)
-        res.render('movies', { movies: filteredMovies})
+        res.render('movies', { movies: filteredMovies })
       }
     })
   } else {
-      // get all movies from the DB;
-      // res.render("movies",{movies:movies});
-      Movie.find({}, function (err, allMovies) {
-        if (err) {
-          console.log(err) // will do UI handling errors later;
-        } else {
-          res.render('movies', { movies: allMovies })
-        }
-      })
+    // get all movies from the DB;
+    // res.render("movies",{movies:movies});
+    Movie.find({}, function (err, allMovies) {
+      if (err) {
+        console.log(err) // will do UI handling errors later;
+      } else {
+        res.render('movies', { movies: allMovies })
+      }
+    })
   }
 })
-
 
 // // Index route - filter movies by genres
 // app.get('/movies', function(req, res){
@@ -208,8 +206,8 @@ app.post('/movies/:id/comments', isLoggedIn, function (req, res) {
 // User buy and delete movie Routes
 // ===============
 
-app.post('/movies/:id/add', isLoggedIn, function(req, res){
- // add the movie to user's cart
+app.post('/movies/:id/add', isLoggedIn, function (req, res) {
+  // add the movie to user's cart
 
   // lookup the movie by ID
   Movie.findById(req.params.id, function (err, movie) {
@@ -221,23 +219,23 @@ app.post('/movies/:id/add', isLoggedIn, function(req, res){
       // find the movie objectID and push to the carts
       //
       User.findById(req.user._id, function (err, user) {
-        if(err) {console.log(err)} else {
+        if (err) { console.log(err) } else {
           user.carts.push(req.params.id)
           user.save()
-          res.redirect('/users/'+ user._id +'/cart')
+          res.redirect('/users/' + user._id + '/cart')
         }
       })
     }
   })
 })
 
-app.post('/movies/:id/delete', isLoggedIn, function(req, res){
-  //delete movie from user's cart
+app.post('/movies/:id/delete', isLoggedIn, function (req, res) {
+  // delete movie from user's cart
   User.findById(req.user._id)
-    .then( user => {
+    .then(user => {
       let movieId = req.params.id
       console.log(movieId)
-      for (var i=0; i < user.carts.length-1; i++) {
+      for (var i = 0; i < user.carts.length - 1; i++) {
         if (user.carts[i].toString() === movieId.toString()) {
           user.carts.splice(i, 1)
           console.log(user.carts)
@@ -245,14 +243,14 @@ app.post('/movies/:id/delete', isLoggedIn, function(req, res){
       }
       return user.save()
 
-          // res.redirect('/user/'+ user._id + '/cart')
+      // res.redirect('/user/'+ user._id + '/cart')
     })
     .then(
       user => {
         console.log(user)
         res.redirect('/users/' + user._id + '/cart')
       }
-      )
+    )
     .catch(
       err => {
         console.log(err)
@@ -271,7 +269,6 @@ app.post('/movies/:id/delete', isLoggedIn, function(req, res){
   //     }
   //   }
   // })
-
 })
 
 // app.get('/movies/:id', function (req, res) {
@@ -288,27 +285,25 @@ app.post('/movies/:id/delete', isLoggedIn, function(req, res){
 //   })
 // })
 
-app.get('/users/:id', isLoggedIn, function(req, res){
+app.get('/users/:id', isLoggedIn, function (req, res) {
   // show user info and edit profile
   req.params.id
   res.render('users')
 })
 
-
-
-app.get('/users/:id/cart', isLoggedIn, function(req, res){
+app.get('/users/:id/cart', isLoggedIn, function (req, res) {
   // find movies in user's cart, populate that and execute
   console.log('params id', req.params.id)
-  User.findOne({_id: req.params.id}).populate('carts').exec(function(err, foundUser) {
+  User.findOne({ _id: req.params.id }).populate('carts').exec(function (err, foundUser) {
     if (err) {
       console.log(err)
     } else {
       console.log(foundUser)
       let total = 0
-      foundUser.carts.forEach(function(element){
+      foundUser.carts.forEach(function (element) {
         total += parseFloat(element.price)
       })
-      res.render('show-user-cart', {user: foundUser, total:total})
+      res.render('show-user-cart', { user: foundUser, total: total })
     }
   })
 })

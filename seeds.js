@@ -51,19 +51,18 @@ function seedDB () {
       console.log(err)
     }
     console.log('removed movies!')
-   //remove all users
-    User.remove({}, function (err){
+    // remove all users
+    User.remove({}, function (err) {
       if (err) {
         console.log(err)
       } console.log('removed users!')
-        // remove all comments
-        Comment.remove({}, function (err) {
-          if (err) {
-            console.log(err)
-          }
-          console.log('removed comments!')
-
-        })
+      // remove all comments
+      Comment.remove({}, function (err) {
+        if (err) {
+          console.log(err)
+        }
+        console.log('removed comments!')
+      })
 
       data.forEach(function (element) {
         var query = element.title.replace(' ', '+')
@@ -109,6 +108,5 @@ function seedDB () {
     }) // comment.remove
   }) // movie.remove
 }
-
 
 module.exports = seedDB
