@@ -1,21 +1,46 @@
  <% include partials/header %>
 
-<div class="container text-center m-x-3 m-y-2">
-    <h1><%= movie.title %></h1>
-    <img src="<%= movie.poster %>">
 
-    <div class="flex">
-        <div>
-        <% movie.comments.forEach(function(element){ %>
-            <strong><%= element.text %></strong>
-            <i>- by <%= element.author %></i>
+    <div class="container m-x-1 m-y-1">
+        <div class="row justify-content-left">
+            <div class="col">
+                <img src="<%= movie.poster %>">
+                <br/>
+                <br/>
+                <div class="container m-y-2 justify-content-center">
+                    <form action="/movies/<%= movie._id %>/add" method="post">
+                        <input class="btn btn-outline-success" type="submit" value="Add to cart">
+                    </form>
+                </div>
 
+            </div>
+            <div class="col">
+                <h1>Movie Title: <%= movie.title %></h1>
+                <p>Year: <%= movie.year %></p>
+                <p>Genre: <%= movie.genre %></p>
+                <p>Runtime: <%= movie.runtime %></p>
+                <p>Director: <%= movie.director %></p>
+                <p>Actors: <%= movie.actors %></p>
+                <p>Plot: <%= movie.plot %></p>
+                <p>ImdbRating: <%= movie.imdbrating %></p>
+                <p>Awards: <%= movie.awards %></p>
+            </div>
         </div>
+        <div class="justify-content-center m-y-2">
+            <div class="m-y-2" style="margin-left:70%; margin-bottom:1rem">
+                <a class="btn btn-success" href="/movies/<%= movie._id %>/comments/new">Add a New Comment</a>
+            </div>
+
+        <% movie.comments.forEach(function(element){ %>
+            <div class="row">
+                <div class="col"><strong><%= element.text %></strong></div>
+                <div class="col-4"><i>- by <%= element.author %></i></div>
+            </div>
+
         <% }) %>
-         <p>
-            <a class="btn btn-success" href="/movies/<%= movie._id %>/comments/new">Add a New Comment</a>
-        </p>
+        </div>
+
+    </div>
     </div>
 
-</div>
 <% include partials/footer %>

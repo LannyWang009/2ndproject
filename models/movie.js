@@ -8,6 +8,11 @@ var movieSchema = new mongoose.Schema({
   price: Number,
   plot: String,
   actors: String,
+  director: String,
+  imdbrating: Number,
+  awards: String,
+  runtime: String,
+  year: String,
   comments: [ {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'

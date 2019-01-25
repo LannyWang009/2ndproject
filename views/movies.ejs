@@ -1,5 +1,5 @@
 <% include partials/header %>
- <div class="container">
+ <div class="showbox">
      <header class="jumbotron">
          <div class="container">
              <h1>Welcome To Rate-your-movies!</h1>
@@ -7,23 +7,49 @@
              <p>
                 <a class="btn btn-primary btn-large" href="/movies/new">Add New Moives</a>
              </p>
+             <form class="input-group" action="/movies/?genre=" method="get">
+                  <select name="genre" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    <option selected>Choose Movie Genre...</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Action">Action</option>
+                    <option value="Western">Western</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                  </select>
+                  <div class="input-group-append">
+                    <input class="btn btn-outline-secondary" type="submit" value="Filter">
+                  </div>
+            </form>
+             <!--<form class="" >-->
+             <!--    Genre:-->
+             <!--    <select name="genre">-->
+
+             <!--    </select>-->
+             <!--    <input class="btn btn-primary btn-large" type="submit" value="Filter">-->
+             <!--</form>-->
          </div>
      </header>
 
      <div class="row text-center">
         <% movies.forEach(function(element){ %>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                 <div class="card">
                    <img class="card-img-top" src="<%= element.poster %>" alt="<%= element.title %>">
                    <div class="card-body">
                        <h4 class="card-title"><%= element.title %></h4>
+                       <p class="card-text"><%= element.year %></p>
                        <p class="card-text"><%= element.genre %></p>
                        <p class="card-text">$<%= element.price %></p>
+                       <div class='row'>
+                           <form class="col" action="/movies/<%= element._id %>" method="get">
+                               <input class="btn btn-sm btn-primary mb-1" type="submit" value="More info">
+                           </form>
+                           <form class="col" action="/movies/<%= element._id %>/add" method="post">
+                               <input class="btn btn-sm btn-outline-primary mb-1" type="submit" value="Add to cart">
+                           </form>
+                       </div>
                    </div>
-                   <p>
-                       <a href="/movies/<%= element._id %>" class="btn btn-primary">More info</a>
-                       <a href="/" class = "btn btn-success">Add the cart</a>
-                   </p>
                 </div>
             </div>
         <% }); %>
