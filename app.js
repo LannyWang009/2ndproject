@@ -8,7 +8,7 @@ const LocalStrategy = require('passport-local')
 // const LocalStrategy = require('passport-local').Strategy
 
 var User = require('./models/user')
-var seedDB = require('./seeds')
+// var seedDB = require('./seeds')
 var Movie = require('./models/movie')
 var Comment = require('./models/comment')
 
@@ -287,7 +287,7 @@ app.post('/movies/:id/delete', isLoggedIn, function (req, res) {
 
 app.get('/users/:id', isLoggedIn, function (req, res) {
   // show user info and edit profile
-  req.params.id
+  // req.params.id
   res.render('users')
 })
 
