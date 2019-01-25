@@ -26,17 +26,20 @@
                 <p>Awards: <%= movie.awards %></p>
             </div>
         </div>
-        <div class="row justify-content-center m-y-2">
-        <div>
-        <% movie.comments.forEach(function(element){ %>
-            <strong><%= element.text %></strong>
-            <i>- by <%= element.author %></i>
+        <div class="justify-content-center m-y-2">
+            <div class="m-y-2" style="margin-left:70%; margin-bottom:1rem">
+                <a class="btn btn-success" href="/movies/<%= movie._id %>/comments/new">Add a New Comment</a>
+            </div>
 
-        </div>
+        <% movie.comments.forEach(function(element){ %>
+            <div class="row">
+                <div class="col"><strong><%= element.text %></strong></div>
+                <div class="col-4"><i>- by <%= element.author %></i></div>
+            </div>
+
         <% }) %>
-         <p>
-            <a class="btn btn-success" href="/movies/<%= movie._id %>/comments/new">Add a New Comment</a>
-        </p>
+        </div>
+
     </div>
     </div>
 

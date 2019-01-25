@@ -13,7 +13,12 @@
     <div class="container">
      <% user.carts.forEach(function(element){ %>
      <div class="row">
-            <div class="col-5"><img src='<%= element.poster %>' width="20%" height= auto></div>
+            <div class="col-3"><img src='<%= element.poster %>' width="20%" height= auto></div>
+            <div class="col-2">
+                <form action="/movies/<%= element._id %>/delete" method="post">
+                    <input class="btn btn-outline-danger" type="submit" value="Delete">
+                </form>
+            </div>
             <div class="col-5"><h5><%= element.title %></h5></div>
             <div class="col"><h6><%= element.price %></h6></div>
      </div>
@@ -27,7 +32,7 @@
          <div class="col"><h4><%= total %></h4></div>
      </div>
 
-     <br>
+
      <br>
      <div class="row justify-content-end">
         <div class="col"><a href="/movies" class="btn btn-outline-primary">Continue shopping</a></div>
@@ -35,7 +40,7 @@
             <a href="#" class="btn btn-primary">Checkout</a>
         </div>
     </div>
-
+     <br>
 
 
 

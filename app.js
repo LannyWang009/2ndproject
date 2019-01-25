@@ -205,7 +205,7 @@ app.post('/movies/:id/comments', isLoggedIn, function (req, res) {
 })
 
 // ===============
-// User buy movie Routes
+// User buy and delete movie Routes
 // ===============
 
 app.post('/movies/:id/add', isLoggedIn, function(req, res){
@@ -224,12 +224,54 @@ app.post('/movies/:id/add', isLoggedIn, function(req, res){
         if(err) {console.log(err)} else {
           user.carts.push(req.params.id)
           user.save()
+          res.redirect('/users/'+ user._id +'/cart')
         }
       })
     }
   })
+})
 
-  res.redirect('/user/:id/cart')
+app.post('/movies/:id/delete', isLoggedIn, function(req, res){
+  //delete movie from user's cart
+  User.findById(req.user._id)
+    .then( user => {
+      let movieId = req.params.id
+      console.log(movieId)
+      for (var i=0; i < user.carts.length-1; i++) {
+        if (user.carts[i].toString() === movieId.toString()) {
+          user.carts.splice(i, 1)
+          console.log(user.carts)
+        }
+      }
+      return user.save()
+
+          // res.redirect('/user/'+ user._id + '/cart')
+    })
+    .then(
+      user => {
+        console.log(user)
+        res.redirect('/users/' + user._id + '/cart')
+      }
+      )
+    .catch(
+      err => {
+        console.log(err)
+      })
+  // User.findById(req.user._id, function(err, user) {
+  //   if(err) {console.log(err)} else {
+  //     let movieId = req.params.id
+  //     console.log(movieId)
+  //     for (var i=0; i < user.carts.length-1; i++) {
+  //       if (user.carts[i] === movieId) {
+  //         user.carts.splice(i, 1)
+  //         console.log(user.carts)
+  //         user.save()
+  //         res.redirect('/user/'+ user._id + '/cart')
+  //       }
+  //     }
+  //   }
+  // })
+
 })
 
 // app.get('/movies/:id', function (req, res) {
