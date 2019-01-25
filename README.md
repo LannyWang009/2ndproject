@@ -1,5 +1,5 @@
-# Phase 2 Backend Project
-# Rate-your-movies
+# Phase 2 Backend Project - Rate-your-movies
+[![Build Status](https://travis-ci.com/LannyWang009/2ndproject.svg?branch=master)](https://travis-ci.com/LannyWang009/2ndproject)
 
 ## Project Description
 Rate-your-movies is a website for movie lovers to share anonymous reviews and to shop movies. Users can check IMDB info of movies, add new movies to database, share their comments anonymously, and shop movies.
