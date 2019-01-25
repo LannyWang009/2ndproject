@@ -111,21 +111,21 @@ Each Movie has:
 
 ## RESTFUL ROUTES
 
-name      url      verb    desc.
-===============================================
-INDEX   /movies
-NEW     /movies/new
-CREATE  /movies
-SHOW    /movies/:id
+* name      url      verb    desc.
+* ===============================================
+* INDEX   /movies
+* NEW     /movies/new
+* CREATE  /movies
+* SHOW    /movies/:id
 
-nested routes:
-NEW     movies/:id/comments/new    GET
-CREATE  movies/:id/comments      POST
+* nested routes:
+* NEW     movies/:id/comments/new    GET
+* CREATE  movies/:id/comments      POST
 
-SHOW     users/:id
-SHOW     users/:id/cart
-CREATE   movies/:id/add     POST  (add movie to cart)
-UPDATE   movies/:id/delete  POST (delete movie from cart)
+* SHOW     users/:id
+* SHOW     users/:id/cart
+* CREATE   movies/:id/add     POST  (add movie to cart)
+* UPDATE   movies/:id/delete  POST (delete movie from cart)
 ------------------------------------------------------
 
 # Style Show Page
