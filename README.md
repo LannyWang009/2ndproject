@@ -33,5 +33,5 @@ This project used
   - Put a build status badge in your `README.md` that links to your latest build
   - Hint: don't forget to test for [StandardJS]!
 
-## *: 
-I first followed the YelpCamp example in Colt Steel's Web Dev Udemy course to learn its logic and framework of segmenting a more complicated task. Then I created new routes and built views for the shopping cart page. 
+*:
+I first followed the YelpCamp example in Colt Steel's Web Dev Udemy course to learn how to build a review sharing app with Mongodb. Then I created new routes and built views for the shopping cart page. 
