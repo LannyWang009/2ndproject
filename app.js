@@ -8,7 +8,7 @@ const LocalStrategy = require('passport-local')
 // const LocalStrategy = require('passport-local').Strategy
 
 var User = require('./models/user')
-// var seedDB = require('./seeds')
+var seedDB = require('./seeds')
 var Movie = require('./models/movie')
 var Comment = require('./models/comment')
 
@@ -16,10 +16,8 @@ var Comment = require('./models/comment')
 mongoose.connect('mongodb://localhost:27017/rate_movies', { useNewUrlParser: true })
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
-// standardjs reccommended version of '
 app.use(express.static(path.join(__dirname, '/public')))
-// app.use('/static', express.static(path.join(__dirname, '/public')))
-// seedDB()
+seedDB()
 
 // PASSPORT CONFIGURATION
 app.use(require('express-session')({
@@ -62,9 +60,15 @@ app.use(function (req, res, next) {
   next()
 })
 
+// =========================================
+// =============Routes======================
+// =========================================
+
 app.get('/', function (req, res) {
   res.render('landing')
 })
+
+
 
 // Index route - show all movies
 app.get('/movies', function (req, res) {
@@ -94,19 +98,6 @@ app.get('/movies', function (req, res) {
   }
 })
 
-// // Index route - filter movies by genres
-// app.get('/movies', function(req, res){
-//   console.log('req.query', req.query)
-//   var genre = req.query.genre
-//   Movie.find({ genre:/genre/i }, function (err, foundmovies) {
-//     if(err) {
-//       console.log(err)
-//     } else {
-//       console.log('foundmovies', foundmovies)
-//       res.render('movies', { movies: foundmovies})
-//     }
-//   })
-// })
 
 // CREATE route, add new movie to our database
 app.post('/movies', function (req, res) {
@@ -202,9 +193,9 @@ app.post('/movies/:id/comments', isLoggedIn, function (req, res) {
   })
 })
 
-// ===============
-// User buy and delete movie Routes
-// ===============
+// ================================
+// User cart movie Routes
+// ================================
 
 app.post('/movies/:id/add', isLoggedIn, function (req, res) {
   // add the movie to user's cart
@@ -351,7 +342,7 @@ app.post('/login', passport.authenticate('local',
 
 // logout route
 app.get('/logout', function (req, res) {
-  req.logout()
+  req.logout()  ;
   res.redirect('/movies')
 })
 

@@ -2,11 +2,11 @@
  <div class="showbox">
      <header class="jumbotron">
          <div class="container">
-             <h1>Welcome To Rate-your-movies!</h1>
-             <p>Rate the movies you watched and share your comments with movie lovers around the world.</p>
-             <p>
-                <a class="btn btn-primary btn-large" href="/movies/new">Add New Moives</a>
-             </p>
+             <h1>Welcome To Shop-your-movies!</h1>
+             <p>Shop classic movies here. Rate them and share your comments with movie lovers around the world.</p>
+             <!--<p>-->
+             <!--   <a class="btn btn-primary btn-large" href="/movies/new">Add New Moives</a>-->
+             <!--</p>-->
              <form class="input-group" action="/movies/?genre=" method="get">
                   <select name="genre" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
                     <option selected>Choose Movie Genre...</option>
@@ -18,7 +18,7 @@
                     <option value="Sci-Fi">Sci-Fi</option>
                   </select>
                   <div class="input-group-append">
-                    <input class="btn btn-outline-secondary" type="submit" value="Filter">
+                    <input class="btn btn-dark" type="submit" value="Filter">
                   </div>
             </form>
              <!--<form class="" >-->
@@ -31,7 +31,7 @@
          </div>
      </header>
 
-     <div class="row text-center">
+     <div class="row text-center movie-display">
         <% movies.forEach(function(element){ %>
             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                 <div class="card">

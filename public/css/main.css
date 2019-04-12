@@ -1,7 +1,33 @@
 html,
 body {
   height: 100%;
-  background-image: linear-gradient(-90deg, grey, aquamarine)
+  background-image: linear-gradient(-90deg, #a2d5d6, #e6b8b3);
+  font-family: 'Encode Sans Condensed', sans-serif;
+}
+.navbar {
+  margin-top: 0;
+  background-color: #384b68;
+  width:100%;
+  z-index:10;
+  /*position:fixed;*/
+}
+
+.footer {
+  background-color: #384b68;
+  width:100%;
+  height:50px;
+  margin-top:120px;
+}
+
+.navbar-brand {
+  font-family: 'Monoton', cursive;
+}
+.jumbotron {
+  padding-top: 100px;
+  background-image: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/vfPFP3W/movie-theater-film-reel-background-in-seamless-loop_xk6ivnb9__F0000.png');
+  background-color: rgba(56,75,104,0.5);
+  color:white;
+  text-shadow: 1px .5px aquamarine;
 }
 
 .showbox {
@@ -11,4 +37,8 @@ body {
 
 .row {
   margin-bottom:20px;
+}
+
+.movieinfo .cartinfo {
+  margin-top: 150px;
 }

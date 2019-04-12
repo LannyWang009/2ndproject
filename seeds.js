@@ -1,11 +1,11 @@
-// const mongoose = require('mongoose')
+const mongoose = require('mongoose')
 var Movie = require('./models/movie')
 var Comment = require('./models/comment')
 var User = require('./models/user')
 const request = require('request')
 
-// var User = require("./models/user");
-// var Cart = require("./models/cart");
+var User = require("./models/user");
+var Cart = require("./models/cart");
 
 var data = [
   { title: 'The Shawshank Redemption', price: 9.99, poster: 'http://dummyimage.com/333x500.jpg/cc0000/ffffff' },
@@ -92,6 +92,19 @@ function seedDB () {
                   {
                     text: "Very classic movie. Definitely worth your 10 bucks to own it (if you haven't watched it yet).",
                     author: 'movie snob'
+                  }, function (err, comment) {
+                    if (err) {
+                      console.log(err)
+                    } else {
+                      movie.comments.push(comment)
+                      movie.save()
+                    }
+                  })
+                  // create another default comment
+                  Comment.create(
+                  {
+                    text: "Great movie to watch, although the price is ridiculous. Does this site even have the copyright?",
+                    author: 'Anonymous'
                   }, function (err, comment) {
                     if (err) {
                       console.log(err)
