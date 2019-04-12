@@ -1,5 +1,5 @@
 # Shop-your-movies
-[![Build Status](https://travis-ci.com/LannyWang009/2ndproject.svg?branch=master)](https://travis-ci.com/LannyWang009/2ndproject)
+[![Build Status](https://travis-ci.com/LannyWang009/Shop-Your-Movies.svg?branch=master)](https://travis-ci.com/LannyWang009/Shop-Your-Movies)
 
 ## Project Description
 Shop-your-movies is a suedo e-commerce website for movie lovers to buy classic movie and share anonymous reviews. 
